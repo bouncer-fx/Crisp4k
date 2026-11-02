@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CRISP4K - Log in</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="nav">
+  <div class="logo">CRISP<span>4K</span></div>
+  <nav><a href="index.html">Home</a><a href="register.html">Register</a></nav>
+</header>
+<main>
+  <section class="card">
+    <h2>Log in</h2>
+    <input id="email" type="email" placeholder="Email" autocomplete="email">
+    <input id="pass" type="password" placeholder="Password" autocomplete="current-password">
+    <button id="btn-login">Log in</button>
+    <p id="out" class="muted"></p>
+    <p class="muted"><a href="#" id="btn-recover">Forgot password?</a> &middot; <a href="register.html">Create an account</a></p>
+  </section>
+</main>
+<script src="config.js"></script>
+<script src="auth-core.js"></script>
+<script src="login.js"></script>
+</body>
+</html>

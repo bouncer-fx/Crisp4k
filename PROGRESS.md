@@ -15,11 +15,16 @@
   (files in database/migrations/001 and 002)
 
 ## Next
-- [ ] Private storage bucket in Supabase
+- [x] Private storage bucket "photos" created
 - [ ] Backend (FastAPI) with .env for keys (never commit .env)
-- [ ] Login/register on the website
+- [x] Login/register pages with redirect (web/login.html, register.html)
 - [ ] Real enhancement engine (Real-ESRGAN on cloud GPU)
 - [ ] Paystack credits, deployment, APK via EAS
 
 ## Rules
 - Never paste secret keys in chat. Keys live only in backend/.env
+
+## Notes
+- Backend runs on Starlette (not FastAPI): pydantic-core cannot compile on Termux. Switch to FastAPI when deployed to the cloud.
+- Backend: cd backend && source .venv/bin/activate && uvicorn app.main:app --host 127.0.0.1 --port 8000
+- Confirm email is OFF in Supabase for testing. Turn on with a real email sender before launch.
