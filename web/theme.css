@@ -1,0 +1,13 @@
+body{background:radial-gradient(900px 500px at 85% -10%,rgba(47,123,255,.28),transparent 60%),radial-gradient(700px 400px at -10% 35%,rgba(120,90,255,.18),transparent 60%),#0f1115;background-attachment:fixed}
+.nav{background:rgba(15,17,21,.7);backdrop-filter:blur(10px);position:sticky;top:0;z-index:5}
+h1{background:linear-gradient(90deg,#fff,#9fc3ff 60%,#2f7bff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn,button{background:linear-gradient(135deg,#2f7bff,#6a5cff);box-shadow:0 8px 24px rgba(47,123,255,.35);transition:transform .2s}
+.btn:active,button:active{transform:scale(.97)}
+.card{background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.09);box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.grid .card::before{content:"";display:block;height:3px;width:44px;border-radius:3px;background:linear-gradient(90deg,#2f7bff,#6a5cff);margin-bottom:12px}
+.grid .card:hover{border-color:#2f7bff;box-shadow:0 0 24px rgba(47,123,255,.25)}
+.vf{display:block;width:min(260px,70%);margin:0 auto 22px;filter:drop-shadow(0 0 22px rgba(47,123,255,.45))}
+.vf .scan{animation:scan 3s ease-in-out infinite}
+@keyframes scan{0%,100%{transform:translateY(0)}50%{transform:translateY(96px)}}
+.strip{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:26px}
+.strip span{font-size:12px;color:#cfd6df;border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:6px 14px;background:rgba(255,255,255,.04)}

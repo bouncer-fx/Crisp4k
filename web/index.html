@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CRISP4K - Your Picture. Just Better.</title>
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="theme.css">
 </head>
 <body>
 <header class="nav">
@@ -14,10 +15,20 @@
 
 <main>
   <section class="hero">
-    <p class="tag">Your Picture. Just Better.</p>
+    <svg class="vf" viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b2a4a"/><stop offset="1" stop-color="#0f1115"/></linearGradient></defs>
+<rect x="10" y="10" width="180" height="120" rx="10" fill="url(#g)"/>
+<circle cx="145" cy="45" r="14" fill="#2f7bff" opacity=".85"/>
+<polygon points="10,130 70,60 105,100 135,75 190,130" fill="#2c3a5c"/>
+<g fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><path d="M10 34V10h24"/><path d="M166 10h24v24"/><path d="M190 106v24h-24"/><path d="M34 130H10v-24"/></g>
+<rect class="scan" x="14" y="16" width="172" height="2" fill="#2f7bff"/>
+<text x="20" y="124" fill="#fff" font-size="11" font-family="sans-serif" font-weight="700">4K</text>
+</svg>
+<p class="tag">Your Picture. Just Better.</p>
     <h1>Bring Every Detail Back.</h1>
     <p class="sub">Transform low-quality photographs into beautifully enhanced, high-resolution images without losing what makes them original.</p>
     <a class="btn" href="#upload">Enhance Your Photo</a>
+    <div class="strip"><span>3 enhancement modes</span><span>Up to 4K export</span><span>Private by design</span></div>
   </section>
 
   <section id="upload" class="card">
@@ -25,6 +36,9 @@
     <p class="muted">JPG, PNG or WEBP. Preview only for now. Enhancement comes in a later phase.</p>
     <input type="file" id="file" accept="image/jpeg,image/png,image/webp">
     <p id="msg" class="muted"></p>
+    <select id="mode"><option value="standard">Standard</option><option value="pro">Pro</option><option value="4k">4K</option></select>
+    <button id="btn-upload" hidden>Upload photo</button>
+    <p id="upmsg" class="muted"></p>
     <img id="preview" alt="" hidden>
     <div id="compare" class="compare" hidden></div>
     <p class="demo">DEMO: the slider compares your photo to a filtered copy. Real AI enhancement arrives in Phase 4.</p>
@@ -49,7 +63,9 @@
 </main>
 
 <footer>&copy; CRISP4K</footer>
+<script src="config.js"></script>
 <script src="app.js"></script>
 <script src="nav.js"></script>
+<script src="upload.js"></script>
 </body>
 </html>
