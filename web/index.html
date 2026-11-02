@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CRISP4K - Your Picture. Just Better.</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="nav">
+  <div class="logo">CRISP<span>4K</span></div>
+  <nav><a href="#how">How it works</a><a href="#modes">Modes</a></nav>
+</header>
+
+<main>
+  <section class="hero">
+    <p class="tag">Your Picture. Just Better.</p>
+    <h1>Bring Every Detail Back.</h1>
+    <p class="sub">Transform low-quality photographs into beautifully enhanced, high-resolution images without losing what makes them original.</p>
+    <a class="btn" href="#upload">Enhance Your Photo</a>
+  </section>
+
+  <section id="upload" class="card">
+    <h2>Upload your photograph</h2>
+    <p class="muted">JPG, PNG or WEBP. Preview only for now. Enhancement comes in a later phase.</p>
+    <input type="file" id="file" accept="image/jpeg,image/png,image/webp">
+    <p id="msg" class="muted"></p>
+    <img id="preview" alt="" hidden>
+  </section>
+
+  <section id="modes" class="grid">
+    <div class="card"><h3>Standard</h3><p class="muted">Cleanup, moderate sharpening, natural color.</p></div>
+    <div class="card"><h3>Pro</h3><p class="muted">Super-resolution and better detail recovery.</p></div>
+    <div class="card"><h3>4K</h3><p class="muted">Maximum practical detail, high-resolution export.</p></div>
+  </section>
+
+  <section id="how" class="card">
+    <h2>How CRISP4K works</h2>
+    <ol>
+      <li>Upload a photograph.</li>
+      <li>Choose an enhancement mode.</li>
+      <li>Compare original and enhanced.</li>
+      <li>Download your result.</li>
+    </ol>
+    <p class="muted">Enhance the photograph, not the person.</p>
+  </section>
+</main>
+
+<footer>&copy; CRISP4K</footer>
+<script src="app.js"></script>
+</body>
+</html>
