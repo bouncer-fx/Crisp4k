@@ -1,16 +1,14 @@
 # CRISP4K Progress
 
 ## Phase 1: Environment Setup (COMPLETE)
-- [x] Termux updated
-- [x] Node 24, npm 12, Git, Python 3.14 installed
-- [x] Git configured and repo created
-- [x] First commit
 
-## Phase 2: Frontend (next)
-- [ ] Create Expo app in apps/mobile
-- [ ] Run it and view it on the phone
-- [ ] Theme and home screen
-- [ ] Upload screen
-- [ ] Before/after comparison slider
+## Phase 2: Frontend (website, in progress)
+- [x] Expo app scaffolded in apps/mobile (not run: Metro too heavy on this phone)
+- [x] Static website in web/ (home page, dark theme)
+- [x] Upload with type and size validation
+- [x] Before/after slider (DEMO filter, not real enhancement)
+- [ ] Enhancement mode selector
+- [ ] Login/register pages (needs Supabase)
+- [ ] Deploy preview online
 
 ## Phases 3-8: not started
