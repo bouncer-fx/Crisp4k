@@ -1,0 +1,19 @@
+{
+  "tiers": {
+    "standard": {"credits": 1, "pipeline": ["classical", "realesr-general-x4v3"]},
+    "pro": {"credits": 2, "pipeline": ["scunet", "realesrgan-x4plus"]},
+    "4k": {"credits": 4, "pipeline": ["scunet", "swinir", "classical-sharpen"]}
+  },
+  "addons": {
+    "face_restore": {"credits": 1, "model": "gfpgan", "default": false}
+  },
+  "models": {
+    "classical": {"available": false, "license": "own code"},
+    "realesr-general-x4v3": {"available": false, "license": "BSD-3"},
+    "realesrgan-x4plus": {"available": false, "license": "BSD-3"},
+    "scunet": {"available": false, "license": "Apache-2.0"},
+    "swinir": {"available": false, "license": "Apache-2.0"},
+    "nafnet": {"available": false, "license": "MIT"},
+    "gfpgan": {"available": false, "license": "verify weights"}
+  }
+}
