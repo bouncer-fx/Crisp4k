@@ -9,6 +9,7 @@
 - [x] Before/after slider (DEMO filter, not real enhancement)
 - [ ] Enhancement mode selector
 - [ ] Login/register pages (needs Supabase)
+- [x] Code pushed to GitHub (bouncer-fx/Crisp4k, private)
 - [ ] Deploy preview online
 
 ## Phases 3-8: not started
