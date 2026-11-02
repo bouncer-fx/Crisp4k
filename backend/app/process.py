@@ -11,7 +11,11 @@ def _run(data, mode):
     out = ClassicalProcessor().process(img, mode)
     buf = io.BytesIO()
     out.save(buf, "JPEG", quality=95)
-    return buf.getvalue()
+    pv = out.copy()
+    pv.thumbnail((1350, 1080), Image.LANCZOS)
+    pb = io.BytesIO()
+    pv.save(pb, "JPEG", quality=85)
+    return buf.getvalue(), pb.getvalue()
 
 async def sign(url, key, path):
     h = {"apikey": key, "Authorization": "Bearer " + key}
@@ -22,7 +26,7 @@ async def sign(url, key, path):
         return None
     return url + "/storage/v1" + r.json()["signedURL"]
 
-async def run_job(url, key, job_id, original_path, mode):
+async def run_job(url, key, job_id, original_path, mode, user_id=None, cost=0):
     h = {"apikey": key, "Authorization": "Bearer " + key}
     t = time.time()
 
@@ -35,12 +39,17 @@ async def run_job(url, key, job_id, original_path, mode):
         async with httpx.AsyncClient(timeout=120) as c:
             r = await c.get(url + "/storage/v1/object/" + config.BUCKET + "/" + original_path, headers=h)
             r.raise_for_status()
-            out = await asyncio.to_thread(_run, r.content, mode)
+            out, prev = await asyncio.to_thread(_run, r.content, mode)
             enh = original_path.rsplit(".", 1)[0] + "_enhanced.jpg"
             up = await c.post(url + "/storage/v1/object/" + config.BUCKET + "/" + enh,
                               headers={**h, "Content-Type": "image/jpeg"}, content=out)
             up.raise_for_status()
+            await c.post(url + "/storage/v1/object/" + config.BUCKET + "/" + enh.replace("_enhanced.jpg", "_preview.jpg"),
+                         headers={**h, "Content-Type": "image/jpeg"}, content=prev)
         await setstatus({"status": "COMPLETED", "enhanced_path": enh,
                          "processing_time": round(time.time() - t, 2)})
     except Exception:
         await setstatus({"status": "FAILED"})
+        if user_id and cost:
+            from .credits import adjust
+            await adjust(url, key, user_id, cost)

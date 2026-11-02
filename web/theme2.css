@@ -1,0 +1,35 @@
+body::before,body::after{content:"";position:fixed;z-index:-1;border-radius:50%;filter:blur(90px);opacity:.5;pointer-events:none}
+body::before{width:420px;height:420px;background:#2f7bff;top:-120px;left:-100px;animation:d1 14s ease-in-out infinite alternate}
+body::after{width:380px;height:380px;background:#ff3d9a;bottom:-120px;right:-100px;animation:d2 17s ease-in-out infinite alternate}
+@keyframes d1{to{transform:translate(120px,160px) scale(1.2)}}
+@keyframes d2{to{transform:translate(-140px,-120px) scale(1.15)}}
+.logo{background:linear-gradient(90deg,#fff,#7fb0ff,#ff7ad9);-webkit-background-clip:text;background-clip:text;color:transparent;font-size:20px}
+.logo span{color:inherit}
+h1{background:linear-gradient(90deg,#fff,#7fb0ff,#ff7ad9,#7fb0ff,#fff);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:250% 0}}
+.tag{color:#7fb0ff;letter-spacing:3px;font-weight:700}
+.vf{width:min(320px,80%)}
+.btn,button{background:linear-gradient(135deg,#2f7bff,#a24dff,#ff3d9a);background-size:200% 200%;animation:pulse 2.4s infinite,flow 6s ease infinite}
+.btn{font-size:17px;padding:16px 34px;border-radius:999px}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(47,123,255,.55)}70%{box-shadow:0 0 0 18px rgba(47,123,255,0)}100%{box-shadow:0 0 0 0 rgba(47,123,255,0)}}
+@keyframes flow{50%{background-position:100% 50%}}
+.card{transition:transform .25s,border-color .25s}
+.card:hover{transform:translateY(-4px)}
+.grid .card:nth-child(1)::before{background:linear-gradient(90deg,#2f7bff,#35d0ff)}
+.grid .card:nth-child(2)::before{background:linear-gradient(90deg,#a24dff,#ff7ad9)}
+.grid .card:nth-child(3)::before{background:linear-gradient(90deg,#ff3d9a,#ffb020)}
+.strip span{animation:bob 3s ease-in-out infinite}
+.strip span:nth-child(2){animation-delay:.4s}.strip span:nth-child(3){animation-delay:.8s}
+@keyframes bob{50%{transform:translateY(-5px)}}
+.marquee{overflow:hidden;white-space:nowrap;margin:30px -20px 0;border-block:1px solid rgba(255,255,255,.1);padding:10px 0;background:rgba(255,255,255,.03)}
+.marquee span{display:inline-block;padding-left:100%;animation:scroll 20s linear infinite;font-weight:800;letter-spacing:3px;color:#9fc3ff}
+@keyframes scroll{to{transform:translateX(-100%)}}
+.msg{animation:pop .35s ease-out}
+@keyframes pop{from{opacity:0;transform:translateY(14px) scale(.97)}}
+body{padding-bottom:200px}
+.composer .bar{padding:12px;gap:14px;border-radius:36px;border:2px solid transparent;background:linear-gradient(rgba(24,26,30,.96),rgba(24,26,30,.96)) padding-box,linear-gradient(90deg,#2f7bff,#ff3d9a,#ffb020,#2f7bff) border-box;background-size:100% 100%,300% 100%;animation:ring 5s linear infinite}
+@keyframes ring{to{background-position:0 0,300% 0}}
+.plus{width:66px;height:66px;font-size:36px;animation:pulse 2.4s infinite}
+.hint{font-size:17px;color:#fff;font-weight:600}
+.composer select{font-size:16px;padding:14px 12px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}

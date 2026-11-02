@@ -1,0 +1,5 @@
+starlette
+uvicorn
+httpx
+python-multipart
+pillow

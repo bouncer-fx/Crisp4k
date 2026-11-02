@@ -4,8 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CRISP4K - Your Picture. Just Better.</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f1115">
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="theme.css?v=3">
+<link rel="stylesheet" href="theme.css?v=7">
+<link rel="stylesheet" href="theme2.css?v=8">
 </head>
 <body>
 <header class="nav">
@@ -31,21 +34,12 @@
     <div class="strip"><span>3 enhancement modes</span><span>Up to 4K export</span><span>Private by design</span></div>
   </section>
 
-  <section id="upload" class="card">
-    <h2>Upload your photograph</h2>
-    <p class="muted">JPG, PNG or WEBP. Preview only for now. Enhancement comes in a later phase.</p>
-    <input type="file" id="file" accept="image/jpeg,image/png,image/webp">
-    <p id="msg" class="muted"></p>
-    <select id="mode"><option value="standard">Standard</option><option value="pro">Pro</option><option value="4k" selected>4K</option></select>
-    <button id="btn-upload" hidden>Upload photo</button>
-    <p id="upmsg" class="muted"></p>
-    <img id="preview" alt="" hidden>
-  </section>
-
+  
+  <div class="marquee"><span>SHARPER &#10022; CLEANER &#10022; BRIGHTER &#10022; 4K &#10022; YOUR PICTURE, JUST BETTER &#10022; ENHANCE THE PHOTOGRAPH, NOT THE PERSON &#10022;</span></div>
   <div id="thread" class="thread"></div>
 
   <section id="modes" class="grid">
-    <div class="card"><h3>Standard</h3><p class="muted">Cleanup, moderate sharpening, natural color.</p></div>
+    <div class="card"><h3>Standard</h3><p class="muted">The bright, vivid, crisp phone-camera look.</p></div>
     <div class="card"><h3>Pro</h3><p class="muted">Super-resolution and better detail recovery.</p></div>
     <div class="card"><h3>4K</h3><p class="muted">Maximum practical detail, high-resolution export.</p></div>
   </section>
@@ -62,10 +56,23 @@
   </section>
 </main>
 
-<footer>&copy; CRISP4K</footer>
+<div id="upload" class="composer">
+  <p id="msg" class="muted"></p>
+  <div class="bar">
+    <label for="file" class="plus" aria-label="Add photo">+</label>
+    <input type="file" id="file" accept="image/jpeg,image/png,image/webp" hidden>
+    <span class="hint">Add a photo to enhance</span>
+    <select id="mode"><option value="standard">Standard</option><option value="pro">Pro</option><option value="4k" selected>4K</option></select>
+  </div>
+  <button id="btn-upload" hidden>Upload photo</button>
+  <img id="preview" alt="" hidden>
+</div>
+<footer>&copy; CRISP4K &middot; <a href="privacy.html" style="color:inherit">Privacy</a></footer>
 <script src="config.js"></script>
+<script src="refresh.js?v=1"></script>
 <script src="app.js"></script>
-<script src="nav.js"></script>
+<script src="nav.js?v=5"></script>
+<script src="composer.js?v=1"></script>
 <script src="upload.js?v=4"></script>
 </body>
 </html>

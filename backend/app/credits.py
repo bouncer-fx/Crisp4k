@@ -24,3 +24,16 @@ async def adjust(url, key, user_id, delta):
             if u.status_code == 200 and u.json():
                 return True, None
     return False, "Could not update credits. Try again."
+
+import time
+_hits = {}
+
+def rate_limited(user_id, limit=6, window=60):
+    now = time.time()
+    h = [t for t in _hits.get(user_id, []) if now - t < window]
+    if len(h) >= limit:
+        _hits[user_id] = h
+        return True
+    h.append(now)
+    _hits[user_id] = h
+    return False

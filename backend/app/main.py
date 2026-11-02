@@ -21,6 +21,7 @@ def load_env():
 load_env()
 URL = os.environ.get("SUPABASE_URL", "").rstrip("/")
 KEY = os.environ.get("SUPABASE_SECRET_KEY", "")
+ORIGINS = [o.strip() for o in os.environ.get("ALLOWED_ORIGINS", "http://127.0.0.1:8080,http://localhost:8080").split(",") if o.strip()]
 
 async def health(request):
     return JSONResponse({"status": "ok", "service": "crisp4k-backend"})
@@ -35,7 +36,8 @@ async def db_check(request):
 
 
 from .uploads import get_user, validate_image, store_and_record
-from .credits import adjust, test_mode
+from .credits import adjust, test_mode, rate_limited
+from .extra import make_routes
 from . import config
 
 async def upload(request):
@@ -45,6 +47,8 @@ async def upload(request):
     user = await get_user(URL, KEY, auth[7:])
     if not user:
         return JSONResponse({"error": "Invalid or expired login."}, status_code=401)
+    if rate_limited(user["id"]):
+        return JSONResponse({"error": "Too many uploads. Please wait a minute."}, status_code=429)
     form = await request.form()
     f = form.get("file")
     mode = form.get("mode", "standard")
@@ -68,7 +72,8 @@ async def upload(request):
             await adjust(URL, KEY, user["id"], cost)
         return JSONResponse({"error": err}, status_code=500)
     return JSONResponse({"id": row["id"], "status": row["status"]},
-        background=BackgroundTask(run_job, URL, KEY, row["id"], row["original_path"], mode))
+        background=BackgroundTask(run_job, URL, KEY, row["id"], row["original_path"], mode,
+            user["id"], cost if charged else 0))
 
 async def job_status(request):
     auth = request.headers.get("authorization", "")
@@ -94,11 +99,11 @@ async def job_status(request):
         out["enhanced_url"] = await sign(URL, KEY, row["enhanced_path"])
     return JSONResponse(out)
 
-app = Starlette(routes=[
+app = Starlette(routes=make_routes(URL, KEY) + [
     Route("/api/health", health),
     Route("/api/dbcheck", db_check),
     Route("/api/upload", upload, methods=["POST"]),
     Route("/api/enhance/{job_id}", job_status),
 ], middleware=[Middleware(CORSMiddleware,
-    allow_origins=["http://127.0.0.1:8080", "http://localhost:8080"],
-    allow_methods=["POST", "GET"], allow_headers=["authorization", "content-type"])])
+    allow_origins=ORIGINS,
+    allow_methods=["POST", "GET", "DELETE"], allow_headers=["authorization", "content-type"])])
