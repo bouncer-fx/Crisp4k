@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CRISP4K - Your Picture. Just Better.</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0f1115">
+<meta name="theme-color" content="#dff5dc">
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="theme.css?v=7">
+<link rel="stylesheet" href="theme.css?v=11">
 <link rel="stylesheet" href="theme2.css?v=8">
+<link rel="stylesheet" href="theme3.css?v=1">
 </head>
 <body>
 <header class="nav">
@@ -32,6 +33,7 @@
     <p class="sub">Transform low-quality photographs into beautifully enhanced, high-resolution images without losing what makes them original.</p>
     <a class="btn" href="#upload">Enhance Your Photo</a>
     <div class="strip"><span>3 enhancement modes</span><span>Up to 4K export</span><span>Private by design</span></div>
+    <div class="stats"><div><b>3</b><span>enhancement modes</span></div><div><b>4K</b><span>maximum output size</span></div><div><b>0</b><span>photos used to train models</span></div></div>
   </section>
 
   
@@ -40,7 +42,7 @@
 
   <section id="modes" class="grid">
     <div class="card"><h3>Standard</h3><p class="muted">The bright, vivid, crisp phone-camera look.</p></div>
-    <div class="card"><h3>Pro</h3><p class="muted">Super-resolution and better detail recovery.</p></div>
+    <div class="card"><h3>Pro</h3><p class="muted">Vivid portrait grade: rich color, deep blacks, crisp detail.</p></div>
     <div class="card"><h3>4K</h3><p class="muted">Maximum practical detail, high-resolution export.</p></div>
   </section>
 
@@ -62,7 +64,7 @@
     <label for="file" class="plus" aria-label="Add photo">+</label>
     <input type="file" id="file" accept="image/jpeg,image/png,image/webp" hidden>
     <span class="hint">Add a photo to enhance</span>
-    <select id="mode"><option value="standard">Standard</option><option value="pro">Pro</option><option value="4k" selected>4K</option></select>
+    <select id="mode"><option value="standard">Standard</option><option value="pro">Pro - Vivid Portrait</option><option value="4k" selected>4K</option></select>
   </div>
   <button id="btn-upload" hidden>Upload photo</button>
   <img id="preview" alt="" hidden>
@@ -73,6 +75,7 @@
 <script src="app.js"></script>
 <script src="nav.js?v=5"></script>
 <script src="composer.js?v=1"></script>
-<script src="upload.js?v=9"></script>
+<script src="upload.js?v=11"></script>
+<script src="fun.js?v=1"></script>
 </body>
 </html>

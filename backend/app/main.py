@@ -1,11 +1,12 @@
 import os
+import asyncio
 import uuid
 import httpx
 from starlette.applications import Starlette
 from starlette.responses import JSONResponse
 from starlette.routing import Route
 from starlette.background import BackgroundTask
-from .process import run_job, sign
+from .process import run_job, sign, plan_for
 from starlette.middleware import Middleware
 from starlette.middleware.cors import CORSMiddleware
 
@@ -71,9 +72,10 @@ async def upload(request):
         if charged:
             await adjust(URL, KEY, user["id"], cost)
         return JSONResponse({"error": err}, status_code=500)
-    return JSONResponse({"id": row["id"], "status": row["status"]},
+    notes = await asyncio.to_thread(lambda: plan_for(data, mode)[1])
+    return JSONResponse({"id": row["id"], "status": row["status"], "notes": notes},
         background=BackgroundTask(run_job, URL, KEY, row["id"], row["original_path"], mode,
-            user["id"], cost if charged else 0))
+            user["id"], cost if charged else 0, data))
 
 async def job_status(request):
     auth = request.headers.get("authorization", "")
@@ -94,9 +96,11 @@ async def job_status(request):
         return JSONResponse({"error": "Not found."}, status_code=404)
     row = rows[0]
     out = {"id": row["id"], "status": row["status"]}
-    if row["status"] == "COMPLETED":
+    if row.get("enhanced_path") and row["status"] in ("PROCESSING", "COMPLETED"):
         out["original_url"] = await sign(URL, KEY, row["original_path"])
-        out["enhanced_url"] = await sign(URL, KEY, row["enhanced_path"])
+        out["preview_url"] = await sign(URL, KEY, row["enhanced_path"].replace("_enhanced.jpg", "_preview.jpg"))
+        if row["status"] == "COMPLETED":
+            out["enhanced_url"] = await sign(URL, KEY, row["enhanced_path"])
     return JSONResponse(out)
 
 app = Starlette(routes=make_routes(URL, KEY) + [

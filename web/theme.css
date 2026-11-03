@@ -33,3 +33,6 @@ body{padding-bottom:150px}
 .composer select{background:#16181b;color:#fff;border:1px solid var(--line);border-radius:14px;padding:10px;font-size:14px}
 .composer #msg{margin:0 0 6px;text-align:center}
 #preview{display:none !important}
+
+.notes{margin:8px 0 0;padding-left:18px;font-size:13px;color:var(--mute)}
+.notes li{margin:3px 0}

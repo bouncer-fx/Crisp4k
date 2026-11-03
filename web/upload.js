@@ -30,13 +30,17 @@
 
   fileInput.addEventListener("change", function () {
     var f = fileInput.files[0];
-    if (f && f.size <= 5 * 1024 * 1024) { btn.onclick(); }
+    var msg = document.getElementById("msg");
+    if (!f) return;
+    if (f.size > 5 * 1024 * 1024) { msg.textContent = "Photo is over 5 MB. Please choose a smaller one."; return; }
+    msg.textContent = "";
+    btn.onclick();
   });
 
   btn.onclick = async function () {
     var s = session(), f = fileInput.files[0];
     var mode = document.getElementById("mode").value;
-    if (!s) { alert("Please log in first."); return; }
+    if (!s) { alert("Please log in first."); fileInput.value = ""; return; }
     if (!f) return;
     var u = document.createElement("div");
     u.className = "msg user";
@@ -52,33 +56,42 @@
     b.scrollIntoView({ behavior: "smooth", block: "end" });
     var fd = new FormData();
     fd.append("file", f); fd.append("mode", mode);
-    fileInput.value = ""; btn.hidden = true;
-    document.getElementById("preview").hidden = true;
-    document.getElementById("msg").textContent = "";
+    fileInput.value = "";
     var fail = function (t) { b.innerHTML = '<p class="muted">' + t + '</p>'; };
     try {
       var H = { Authorization: "Bearer " + s.access_token };
       var r = await fetch(C.API_URL + "/api/upload", { method: "POST", headers: H, body: fd });
       var d = await r.json();
       if (!r.ok) { fail(d.error || "Upload failed."); return; }
-      for (var i = 0; i < 90; i++) {
-        await sleep(2000);
+      var nh = "";
+      if (d.notes && d.notes.length) {
+        nh = '<ul class="notes"><li>' + d.notes.join("</li><li>") + "</li></ul>";
+        b.innerHTML = '<p class="muted">I looked at your photo and chose these adjustments:</p>' + nh;
+      }
+      var shown = false;
+      for (var i = 0; i < 400; i++) {
+        await sleep(shown ? 1500 : 600);
         var q = await (await fetch(C.API_URL + "/api/enhance/" + d.id, { headers: H })).json();
         if (q.status === "FAILED") { fail("Enhancement failed. Please try again."); return; }
+        if (q.preview_url && !shown) {
+          shown = true;
+          b.innerHTML = '<p class="muted">Preview ready. Preparing your full-size version <span class="dots"><i></i><i></i><i></i></span></p><div class="slot"></div>' + nh;
+          slider(b.querySelector(".slot"), q.original_url, q.preview_url);
+          b.scrollIntoView({ behavior: "smooth", block: "end" });
+        }
         if (q.status === "COMPLETED") {
-          b.innerHTML = '<p class="muted">Done. Drag the handle to compare.</p><div class="slot"></div>';
-          slider(b.querySelector(".slot"), q.original_url, q.enhanced_url);
+          var n = b.querySelector("p.muted");
+          if (n) n.textContent = "Done. Drag the handle to compare.";
           var dl = document.createElement("a");
           dl.className = "btn";
           dl.textContent = "Download full-size";
           dl.href = q.enhanced_url + (q.enhanced_url.indexOf("?") > -1 ? "&" : "?") + "download=crisp4k-enhanced.jpg";
           dl.style.cssText = "display:inline-block;margin-top:14px";
           b.appendChild(dl);
-          b.scrollIntoView({ behavior: "smooth", block: "end" });
           return;
         }
       }
-      fail("This is taking too long. Check your history later.");
+      fail("This is taking too long. Check History later.");
     } catch (e) { fail("Could not reach the server."); }
   };
 })();

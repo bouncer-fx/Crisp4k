@@ -28,3 +28,6 @@
 - Backend runs on Starlette (not FastAPI): pydantic-core cannot compile on Termux. Switch to FastAPI when deployed to the cloud.
 - Backend: cd backend && source .venv/bin/activate && uvicorn app.main:app --host 127.0.0.1 --port 8000
 - Confirm email is OFF in Supabase for testing. Turn on with a real email sender before launch.
+
+## Fun touches (web/fun.js, loaded last in index.html)
+- Confetti and vibration on finish, slider reveal sweep, changing status lines, Share button, drag and drop. Untested live.
