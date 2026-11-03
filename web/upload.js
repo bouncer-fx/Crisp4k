@@ -68,6 +68,12 @@
         if (q.status === "COMPLETED") {
           b.innerHTML = '<p class="muted">Done. Drag the handle to compare.</p><div class="slot"></div>';
           slider(b.querySelector(".slot"), q.original_url, q.enhanced_url);
+          var dl = document.createElement("a");
+          dl.className = "btn";
+          dl.textContent = "Download full-size";
+          dl.href = q.enhanced_url + (q.enhanced_url.indexOf("?") > -1 ? "&" : "?") + "download=crisp4k-enhanced.jpg";
+          dl.style.cssText = "display:inline-block;margin-top:14px";
+          b.appendChild(dl);
           b.scrollIntoView({ behavior: "smooth", block: "end" });
           return;
         }

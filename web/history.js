@@ -12,7 +12,7 @@
     d.appendChild(el("p", "", it.enhancement_mode.toUpperCase() + " | " + it.status));
     d.appendChild(el("p", "muted", new Date(it.created_at).toLocaleString() + (it.processing_time ? " | " + it.processing_time + "s" : "")));
     var row = el("div", "row");
-    if (it.enhanced_url) { var a = el("a", "btn", "Open / Save"); a.href = it.enhanced_url; a.target = "_blank"; row.appendChild(a); }
+    if (it.enhanced_url) { var a = el("a", "btn", "Download"); a.href = it.enhanced_url + (it.enhanced_url.indexOf("?") > -1 ? "&" : "?") + "download=crisp4k-enhanced.jpg"; a.target = "_blank"; row.appendChild(a); }
     var del = el("button", "", "Delete");
     del.onclick = function () {
       if (!confirm("Delete this photo and its enhancement permanently?")) return;
